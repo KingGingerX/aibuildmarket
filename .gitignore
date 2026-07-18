@@ -1,2 +1,21 @@
+# dependencies
+node_modules/
+
+# next.js build output
+.next/
+out/
+
+# env files - never commit real secrets
 .env
+.env.local
+.env.*.local
 aibuildmarket/.env
+
+# misc
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+
+.vercel/
+.neon_conn_tmp.txt
+.neon_conn_err.txt
