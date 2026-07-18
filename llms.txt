@@ -1,0 +1,16 @@
+# AI Build Market
+
+> A marketplace where people buy and sell AI-built tools, AI-powered businesses, prompts, ideas, and games. Listing is free; the platform takes a transaction fee only on completed sales.
+
+## What this site is
+AI Build Market connects independent sellers of AI-developed tools, businesses, prompt packs, ideas, and games with buyers. Every sale is a direct agreement between buyer and seller. The platform is a venue, not a party to the transaction, and is not responsible for the performance of what's sold after a sale completes.
+
+## Categories
+- AI Tools — software and automation tools built with or for AI workflows
+- Businesses — AI-built or AI-automated revenue-generating businesses and assets
+- Ideas & IP — unbuilt product concepts and specs
+- Prompts & Packs — prompt libraries and prompt engineering packs
+- Games — AI-assisted or AI-built games and game source
+
+## Fees
+Listing a build is free. AI Build Market charges a transaction fee only when a sale completes.

@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+Sitemap: https://aibuildmarket.com/sitemap.xml
+
+# AI / LLM crawlers explicitly allowed (GEO — helps AI answer engines cite this site)
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /

@@ -1,0 +1,33 @@
+{
+  "name": "ai-build-market",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "prisma generate",
+    "dev": "next dev -p 3417",
+    "build": "next build",
+    "start": "next start -p 3417",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio"
+  },
+  "dependencies": {
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "next-auth": "5.0.0-beta.31",
+    "@prisma/client": "^5.20.0",
+    "bcryptjs": "^2.4.3",
+    "stripe": "^17.0.0",
+    "zod": "^3.23.8",
+    "nodemailer": "^7.0.7"
+  },
+  "devDependencies": {
+    "prisma": "^5.20.0",
+    "typescript": "^5.6.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/nodemailer": "^7.0.2"
+  }
+}

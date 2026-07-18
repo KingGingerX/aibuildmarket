@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ===== CORE SEO ===== -->
+<title>AI Build Market — Buy &amp; Sell AI Tools, AI Businesses, Prompts &amp; Games</title>
+<meta name="description" content="AI Build Market is the marketplace to buy and sell AI-built tools, AI businesses, prompts, ideas, and games. Browse verified listings or list your build free — buyers already searching, you keep the deal simple.">
+<meta name="keywords" content="buy AI tools, sell AI tools, AI business marketplace, sell AI business, AI prompt marketplace, buy AI prompts, sell AI startup, AI tool marketplace, micro SaaS marketplace, buy AI apps">
+<link rel="canonical" href="https://aibuildmarket.com/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="AI Build Market">
+
+<!-- ===== OPEN GRAPH (Facebook, LinkedIn, Slack, iMessage previews) ===== -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Build Market">
+<meta property="og:title" content="AI Build Market — Buy & Sell AI Tools and AI Businesses">
+<meta property="og:description" content="The marketplace for AI-built tools, businesses, prompts, ideas, and games. Real buyers, real sellers, one transaction fee.">
+<meta property="og:url" content="https://aibuildmarket.com/">
+<meta property="og:image" content="https://aibuildmarket.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- ===== TWITTER / X CARD ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Build Market — Buy & Sell AI Tools and AI Businesses">
+<meta name="twitter:description" content="Marketplace for AI-built tools, businesses, prompts, ideas, and games.">
+<meta name="twitter:image" content="https://aibuildmarket.com/og-image.png">
+
+<!-- ===== STRUCTURED DATA (schema.org — read by Google Rich Results AND by AI answer engines like ChatGPT/Perplexity/Google AI Overviews for GEO) ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "AI Build Market",
+  "url": "https://aibuildmarket.com",
+  "description": "A marketplace where builders sell AI-developed tools, businesses, prompts, ideas, and games directly to buyers.",
+  "slogan": "Sell what your AI built. Buy what works."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "AI Build Market",
+  "url": "https://aibuildmarket.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://aibuildmarket.com/search?q={search_term}",
+    "query-input": "required name=search_term"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is AI Build Market?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AI Build Market is an online marketplace where people who build AI tools, AI-powered businesses, prompt packs, product ideas, and games can list them for sale directly to buyers. The platform takes a transaction fee only when a sale completes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where can I sell an AI tool I built?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AI Build Market lets you list an AI tool for free and puts it in front of buyers actively browsing by category, without needing to run your own ads. A transaction fee applies only when the tool sells."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I sell an AI-built business on AI Build Market?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. AI Build Market has a dedicated Businesses category for AI-built or AI-automated businesses, including sites, automation stacks, and licensable systems. Higher-value business listings go through identity verification on both sides before the sale completes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does AI Build Market charge to sell something?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Listing is free. AI Build Market charges a transaction fee only on completed sales, so sellers pay nothing upfront to list an AI tool, business, prompt pack, idea, or game."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is AI Build Market responsible for what's sold on the platform?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. AI Build Market is a venue connecting independent buyers and sellers. Every sale is a direct agreement between buyer and seller, and all listings are sold as-is unless a seller states an additional guarantee in writing on the listing."
+      }
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #12161C;
+    --bg-raised: #181D25;
+    --bg-card: #1D232C;
+    --line: #2A3140;
+    --text: #F1EFE9;
+    --text-dim: #9AA3B2;
+    --molten: #F2A93B;
+    --molten-hot: #FF7A3D;
+    --teal: #2AA8A0;
+    --danger: #E8563F;
+    --radius: 10px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3, .display{
+    font-family:'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing:0.02em;
+  }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+  a{ color:inherit; text-decoration:none; }
+  img{max-width:100%; display:block;}
+
+  /* ===== NAV ===== */
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 40px;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg-raised);
+    position: sticky; top:0; z-index:50;
+  }
+  .logo{
+    font-size:18px; font-weight:700; letter-spacing:0.02em;
+    display:flex; align-items:center; gap:2px; font-family:'IBM Plex Mono', monospace;
+  }
+  .logo .slash{ color: var(--molten); font-weight:600; margin:0 3px; }
+  .logo .spark{ color: var(--molten); }
+  .nav-links{ display:flex; gap:28px; font-size:14px; color:var(--text-dim); font-weight:500; }
+  .nav-links a:hover{ color:var(--text); }
+  .nav-right{ display:flex; align-items:center; gap:16px; }
+  .btn{
+    padding:10px 18px; border-radius:6px; font-size:13px; font-weight:600;
+    text-transform:uppercase; letter-spacing:0.04em; cursor:pointer; border:none;
+  }
+  .btn-primary{ background: var(--molten); color:#14110A; }
+  .btn-primary:hover{ background: var(--molten-hot); }
+  .btn-ghost{ background:transparent; color:var(--text); border:1px solid var(--line); }
+  .btn-ghost:hover{ border-color: var(--text-dim); }
+  .avatar-flair{
+    display:flex; align-items:center; gap:8px; font-size:13px; padding:6px 10px 6px 6px;
+    border:1px solid var(--line); border-radius:20px; cursor:pointer;
+  }
+  .avatar-dot{ width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg,var(--molten),var(--teal)); }
+  .flair-name{ font-family:'Oswald'; letter-spacing:0.03em; }
+
+  /* ===== HERO ===== */
+  .hero{ padding: 72px 40px 0; max-width:1240px; margin:0 auto; text-align:center; }
+  .hero h1{ font-size:56px; line-height:1.05; max-width:820px; margin:0 auto 18px; }
+  .hero h1 .accent{ color: var(--molten); }
+  .hero p{ color:var(--text-dim); font-size:17px; max-width:560px; margin:0 auto 32px; line-height:1.6; }
+  .hero-ctas{ display:flex; gap:14px; justify-content:center; margin-bottom: 56px; }
+  .btn-lg{ padding:14px 26px; font-size:14px; }
+
+  /* Signature element: the Pour — a molten activity ticker */
+  .pour-wrap{
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    background: var(--bg-raised);
+    overflow:hidden; position:relative;
+  }
+  .pour-label{
+    position:absolute; left:0; top:0; bottom:0; z-index:2;
+    display:flex; align-items:center; gap:8px;
+    padding:0 18px; background: var(--bg-raised);
+    font-size:11px; letter-spacing:0.12em; color:var(--molten); font-weight:600;
+    border-right:1px solid var(--line);
+  }
+  .pour-dot{ width:7px; height:7px; border-radius:50%; background:var(--molten-hot); animation: pulse 1.4s infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:.35;} }
+  .pour-track{
+    display:flex; gap:0; white-space:nowrap;
+    animation: pour-scroll 32s linear infinite;
+    padding: 14px 0 14px 170px;
+  }
+  .pour-wrap:hover .pour-track{ animation-play-state: paused; }
+  @keyframes pour-scroll{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+  .pour-item{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12.5px; color:var(--text-dim); padding:0 26px; border-right:1px solid var(--line);
+  }
+  .pour-item .amt{ color:var(--molten); font-weight:600; }
+  .pour-item .tag{
+    font-size:10px; padding:2px 6px; border-radius:4px; background:rgba(42,168,160,0.15); color:var(--teal);
+    text-transform:uppercase; letter-spacing:0.05em;
+  }
+
+  /* ===== CATEGORY RAIL ===== */
+  .section{ max-width:1240px; margin:0 auto; padding: 56px 40px; }
+  .section-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:26px; }
+  .section-head h2{ font-size:26px; }
+  .section-head .see-all{ font-size:13px; color:var(--molten); font-weight:600; }
+  .cat-rail{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:44px; }
+  .cat-pill{
+    display:flex; align-items:center; gap:10px;
+    padding:14px 20px; border:1px solid var(--line); border-radius:8px;
+    background: var(--bg-card); cursor:pointer; transition:.15s;
+  }
+  .cat-pill:hover{ border-color:var(--molten); background: var(--bg-raised); }
+  .cat-pill.active{ border-color:var(--molten); background: rgba(242,169,59,0.08); }
+  .cat-icon{ font-size:18px; }
+  .cat-name{ font-family:'Oswald'; font-size:14px; letter-spacing:0.03em; }
+  .cat-count{ font-size:11px; color:var(--text-dim); margin-left:auto; font-family:'IBM Plex Mono'; }
+
+  /* ===== LISTING GRID ===== */
+  .grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  @media(max-width:1024px){ .grid{ grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:640px){ .grid{ grid-template-columns:1fr;} }
+  .card{
+    background: var(--bg-card); border:1px solid var(--line); border-radius: var(--radius);
+    overflow:hidden; display:flex; flex-direction:column; transition:.15s;
+  }
+  .card:hover{ border-color:var(--molten); transform:translateY(-2px); }
+  .card-media{
+    height:130px; background:linear-gradient(135deg,#232b38,#171b22);
+    display:flex; align-items:center; justify-content:center; font-size:34px; color:var(--line);
+    position:relative;
+  }
+  .card-cat-tag{
+    position:absolute; top:10px; left:10px; font-size:10px; text-transform:uppercase; letter-spacing:0.06em;
+    background: rgba(0,0,0,0.55); padding:4px 8px; border-radius:4px; color: var(--teal); font-weight:600;
+  }
+  .card-body{ padding:16px; display:flex; flex-direction:column; gap:8px; flex:1; }
+  .card-title{ font-size:15px; font-weight:600; line-height:1.3; }
+  .card-desc{ font-size:12.5px; color:var(--text-dim); line-height:1.5; flex:1; }
+  .card-seller{ display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--text-dim); }
+  .seller-dot{ width:16px; height:16px; border-radius:50%; background:linear-gradient(135deg,var(--teal),var(--molten)); }
+  .verified{ color:var(--teal); font-size:10.5px; }
+  .card-footer{ display:flex; align-items:center; justify-content:space-between; padding-top:10px; border-top:1px solid var(--line); margin-top:4px; }
+  .price{ font-family:'IBM Plex Mono'; font-size:17px; font-weight:600; color:var(--molten); }
+  .price-note{ font-size:9.5px; color:var(--text-dim); }
+  .buy-btn{ padding:8px 14px; font-size:11.5px; }
+
+  /* ===== SELLER CTA BANNER ===== */
+  .seller-banner{
+    background: linear-gradient(120deg, #1D2430, #171B22 65%);
+    border:1px solid var(--line); border-radius:14px;
+    padding:44px; display:flex; align-items:center; justify-content:space-between; gap:40px;
+    position:relative; overflow:hidden;
+  }
+  .seller-banner::after{
+    content:""; position:absolute; right:-60px; top:-60px; width:220px; height:220px; border-radius:50%;
+    background: radial-gradient(circle, rgba(242,169,59,0.18), transparent 70%);
+  }
+  .seller-banner-copy{ max-width:520px; z-index:1; }
+  .seller-banner-copy h3{ font-size:28px; margin-bottom:12px; }
+  .seller-banner-copy p{ color:var(--text-dim); font-size:14.5px; line-height:1.6; margin-bottom:20px; }
+  .stat-row{ display:flex; gap:32px; z-index:1; }
+  .stat{ text-align:center; }
+  .stat .num{ font-family:'IBM Plex Mono'; font-size:26px; color:var(--molten); font-weight:600; }
+  .stat .lbl{ font-size:11px; color:var(--text-dim); margin-top:4px; }
+
+  /* ===== COSMETICS / MICROTRANSACTIONS ===== */
+  .cosmetics-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media(max-width:800px){ .cosmetics-grid{ grid-template-columns:1fr; } }
+  .cosmetic-card{
+    background:var(--bg-card); border:1px solid var(--line); border-radius: var(--radius); padding:22px;
+  }
+  .cosmetic-card h4{ font-family:'Oswald'; font-size:15px; margin-bottom:6px; letter-spacing:0.03em;}
+  .cosmetic-card p.hint{ font-size:12.5px; color:var(--text-dim); margin-bottom:16px; }
+  .swatch-row{ display:flex; gap:10px; flex-wrap:wrap; }
+  .swatch{
+    display:flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--line); border-radius:6px;
+    font-size:12.5px; cursor:pointer;
+  }
+  .swatch:hover{ border-color:var(--molten); }
+  .swatch .p{ color:var(--molten); font-family:'IBM Plex Mono'; font-size:11px; }
+  .font-a{ font-family:'Oswald'; }
+  .font-b{ font-family:'IBM Plex Mono'; }
+  .font-c{ font-style:italic; font-weight:700; }
+
+  /* ===== MONETIZATION TRANSPARENCY ===== */
+  .rev-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  @media(max-width:900px){ .rev-grid{ grid-template-columns:repeat(2,1fr);} }
+  .rev-card{ background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius); padding:18px; }
+  .rev-card .pct{ font-family:'IBM Plex Mono'; color:var(--teal); font-size:22px; font-weight:600; }
+  .rev-card h5{ font-size:13.5px; margin:8px 0 6px; font-family:'Oswald'; letter-spacing:0.02em; }
+  .rev-card p{ font-size:11.5px; color:var(--text-dim); line-height:1.5; }
+
+  /* ===== LEGAL FOOTER ===== */
+  footer{ border-top:1px solid var(--line); background:var(--bg-raised); padding:44px 40px 30px; }
+  .legal-wrap{ max-width:1240px; margin:0 auto; }
+  .legal-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; margin-bottom:32px; }
+  @media(max-width:900px){ .legal-grid{ grid-template-columns:1fr 1fr; } }
+  footer h6{ font-family:'Oswald'; font-size:12px; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:12px; }
+  footer ul{ list-style:none; }
+  footer li{ margin-bottom:8px; font-size:13px; }
+  footer li a:hover{ color:var(--molten); }
+  .legal-strip{
+    border-top:1px solid var(--line); padding-top:20px; font-size:11.5px; color:var(--text-dim); line-height:1.7;
+  }
+  .legal-strip b{ color:var(--text); }
+  .legal-open{ color:var(--molten); cursor:pointer; font-weight:600; }
+
+  /* Modal */
+  .modal-bg{
+    display:none; position:fixed; inset:0; background:rgba(10,12,15,0.75); z-index:100;
+    align-items:center; justify-content:center; padding:24px;
+  }
+  .modal-bg.open{ display:flex; }
+  .modal{
+    background:var(--bg-card); border:1px solid var(--line); border-radius:12px; max-width:640px; width:100%;
+    max-height:80vh; overflow-y:auto; padding:32px;
+  }
+  .modal h3{ font-size:20px; margin-bottom:18px; }
+  .modal h4{ font-size:13.5px; color:var(--molten); margin:18px 0 6px; font-family:'Oswald'; letter-spacing:0.03em; }
+  .modal p{ font-size:13px; color:var(--text-dim); line-height:1.65; margin-bottom:4px; }
+  .modal-close{ float:right; cursor:pointer; color:var(--text-dim); font-size:20px; line-height:1; }
+
+  /* ===== LOGIN GATE ===== */
+  .gated{ position:relative; cursor:pointer; }
+  .gate-blur{ filter:blur(5px); user-select:none; }
+  .gate-label{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    font-size:9.5px; font-weight:600; color:var(--molten); white-space:nowrap;
+    background:var(--bg-card); padding:2px 6px; border-radius:4px; border:1px solid var(--line);
+  }
+  .gated:hover .gate-label{ border-color:var(--molten); }
+  .gated-comments{
+    font-size:10.5px; color:var(--text-dim); cursor:pointer; display:flex; align-items:center; gap:5px;
+  }
+  .gated-comments:hover{ color:var(--molten); }
+  .login-btn{ background:var(--molten); color:#14110A; }
+  .login-modal-body{ display:flex; flex-direction:column; gap:12px; margin-top:6px; }
+  .login-field{
+    background:var(--bg-raised); border:1px solid var(--line); border-radius:6px; padding:10px 12px;
+    color:var(--text); font-size:13px; font-family:'Inter';
+  }
+  .login-note{ font-size:11px; color:var(--text-dim); line-height:1.5; margin-top:6px; }
+</style>
+</head>
+<body>
+
+<header>
+<nav>
+  <div class="logo"><span class="spark">◆</span>AI<span class="slash">//</span>BUILD<span class="slash">//</span>MARKET</div>
+  <div class="nav-links">
+    <a href="#">AI Tools</a>
+    <a href="#">Businesses</a>
+    <a href="#">Ideas &amp; IP</a>
+    <a href="#">Prompts</a>
+    <a href="#">Games</a>
+  </div>
+  <div class="nav-right">
+    <div class="avatar-flair">
+      <div class="avatar-dot"></div>
+      <span class="flair-name font-b">GOODY ⚡</span>
+    </div>
+    <button class="btn btn-ghost">Sell Something</button>
+  </div>
+</nav>
+</header>
+
+<main>
+<section class="hero">
+  <h1>Sell what your <span class="accent">AI built</span>. Buy what works.</h1>
+  <p>Tools, businesses, prompts, ideas, and games — built with AI, sold to real buyers. We bring the traffic. You bring the build.</p>
+  <div class="hero-ctas">
+    <button class="btn btn-primary btn-lg">Browse the Marketplace</button>
+    <button class="btn btn-ghost btn-lg">List Your First Build — Free</button>
+  </div>
+</section>
+
+<div class="pour-wrap">
+  <div class="pour-label"><span class="pour-dot"></span>THE POUR — LIVE ACTIVITY (DEMO DATA)</div>
+  <div class="pour-track" id="pourTrack"></div>
+</div>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Browse by Category</h2>
+    <a href="#" class="see-all">View all listings →</a>
+  </div>
+  <div class="cat-rail">
+    <div class="cat-pill active"><span class="cat-icon">🛠️</span><span class="cat-name">AI Tools</span><span class="cat-count">1,204</span></div>
+    <div class="cat-pill"><span class="cat-icon">🏢</span><span class="cat-name">Businesses</span><span class="cat-count">318</span></div>
+    <div class="cat-pill"><span class="cat-icon">💡</span><span class="cat-name">Ideas &amp; IP</span><span class="cat-count">642</span></div>
+    <div class="cat-pill"><span class="cat-icon">📝</span><span class="cat-name">Prompts &amp; Packs</span><span class="cat-count">3,890</span></div>
+    <div class="cat-pill"><span class="cat-icon">🎮</span><span class="cat-name">Games</span><span class="cat-count">207</span></div>
+  </div>
+
+  <div class="section-head" style="margin-top:8px;">
+    <h3 style="font-size:16px; color:var(--teal); text-transform:uppercase; letter-spacing:0.06em;">Featured — Verified Builder Tools</h3>
+  </div>
+  <div class="grid" id="listingGrid">
+
+    <article class="card" itemscope itemtype="https://schema.org/Product">
+      <div class="card-media"><span class="card-cat-tag">AI TOOLS</span>🛠️</div>
+      <div class="card-body">
+        <h4 class="card-title" itemprop="name">Paid! — Stripe Automation Suite</h4>
+        <p class="card-desc" itemprop="description">Automated Stripe product creation, checkout, and payment workflows. Built for sellers who want to launch and manage Stripe-based products without manual setup.</p>
+        <div class="card-seller gated" onclick="openLogin()">
+          <div class="seller-dot gate-blur"></div><span class="gate-blur">GOODY</span>
+          <span class="gate-label">🔒 Log in to see seller</span>
+        </div>
+        <div class="gated-comments" onclick="openLogin()">💬 <span>Log in to view comments</span></div>
+        <div class="card-footer">
+          <div class="gated" onclick="openLogin()">
+            <div class="price gate-blur">Contact Seller</div>
+            <div class="gate-label">🔒 Log in to see price</div>
+          </div>
+          <button class="btn btn-primary buy-btn" onclick="openLogin()">🔒 Log In</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" itemscope itemtype="https://schema.org/Product">
+      <div class="card-media"><span class="card-cat-tag">AI TOOLS</span>🛠️</div>
+      <div class="card-body">
+        <h4 class="card-title" itemprop="name">CashMoto — Whop Automation</h4>
+        <p class="card-desc" itemprop="description">Automation layer for Whop-based digital product sellers — handles the repetitive setup and management work around running a Whop storefront.</p>
+        <div class="card-seller gated" onclick="openLogin()">
+          <div class="seller-dot gate-blur"></div><span class="gate-blur">GOODY</span>
+          <span class="gate-label">🔒 Log in to see seller</span>
+        </div>
+        <div class="gated-comments" onclick="openLogin()">💬 <span>Log in to view comments</span></div>
+        <div class="card-footer">
+          <div class="gated" onclick="openLogin()">
+            <div class="price gate-blur">Contact Seller</div>
+            <div class="gate-label">🔒 Log in to see price</div>
+          </div>
+          <button class="btn btn-primary buy-btn" onclick="openLogin()">🔒 Log In</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" itemscope itemtype="https://schema.org/Product">
+      <div class="card-media"><span class="card-cat-tag">AI TOOLS</span>🛠️</div>
+      <div class="card-body">
+        <h4 class="card-title" itemprop="name">FetchAPI — Credential &amp; Env Auto-Populator</h4>
+        <p class="card-desc" itemprop="description">Automatically populates API credentials and environment variables for new projects, cutting out repetitive manual setup during development.</p>
+        <div class="card-seller gated" onclick="openLogin()">
+          <div class="seller-dot gate-blur"></div><span class="gate-blur">GOODY</span>
+          <span class="gate-label">🔒 Log in to see seller</span>
+        </div>
+        <div class="gated-comments" onclick="openLogin()">💬 <span>Log in to view comments</span></div>
+        <div class="card-footer">
+          <div class="gated" onclick="openLogin()">
+            <div class="price gate-blur">Contact Seller</div>
+            <div class="gate-label">🔒 Log in to see price</div>
+          </div>
+          <button class="btn btn-primary buy-btn" onclick="openLogin()">🔒 Log In</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" itemscope itemtype="https://schema.org/Product">
+      <div class="card-media"><span class="card-cat-tag">AI TOOLS</span>🛠️</div>
+      <div class="card-body">
+        <h4 class="card-title" itemprop="name">RingDing — AI Call Interception</h4>
+        <p class="card-desc" itemprop="description">Intercepts inbound calls and routes them through AI personas, built for handling call volume without a live answering team.</p>
+        <div class="card-seller gated" onclick="openLogin()">
+          <div class="seller-dot gate-blur"></div><span class="gate-blur">GOODY</span>
+          <span class="gate-label">🔒 Log in to see seller</span>
+        </div>
+        <div class="gated-comments" onclick="openLogin()">💬 <span>Log in to view comments</span></div>
+        <div class="card-footer">
+          <div class="gated" onclick="openLogin()">
+            <div class="price gate-blur">Contact Seller</div>
+            <div class="gate-label">🔒 Log in to see price</div>
+          </div>
+          <button class="btn btn-primary buy-btn" onclick="openLogin()">🔒 Log In</button>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="section-head" style="margin-top:40px;">
+    <h3 style="font-size:16px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.06em;">Example Listings (demo content — not real transactions)</h3>
+  </div>
+  <div class="grid" id="demoGrid"></div>
+</section>
+
+<section class="section">
+  <div class="seller-banner">
+    <div class="seller-banner-copy">
+      <h3>Stop paying for ads. Come sell where the buyers already are.</h3>
+      <p>Every listing gets placed in front of buyers actively looking to spend — no ad account, no targeting setup, no wasted spend testing creatives. We only take a cut when you actually get paid.</p>
+      <button class="btn btn-primary">List a Build — Takes 4 Minutes</button>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><div class="num">12%</div><div class="lbl">house fee<br>(sale only)</div></div>
+      <div class="stat"><div class="num">$0</div><div class="lbl">to list<br>a build</div></div>
+      <div class="stat"><div class="num">24h</div><div class="lbl">avg. payout<br>after sale</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Make Your Profile Yours</h2></div>
+  <div class="cosmetics-grid">
+    <div class="cosmetic-card">
+      <h4>USERNAME FONTS</h4>
+      <p class="hint">Cosmetic only — no gameplay advantage, just flex. One-time unlock per font.</p>
+      <div class="swatch-row">
+        <div class="swatch font-a">Oswald Bold <span class="p">$1.99</span></div>
+        <div class="swatch font-b">Mono Ledger <span class="p">$1.99</span></div>
+        <div class="swatch font-c">Italic Slab <span class="p">$2.99</span></div>
+      </div>
+    </div>
+    <div class="cosmetic-card">
+      <h4>REACTION &amp; FLAIR PACKS</h4>
+      <p class="hint">Custom emoji reactions for listings, comments, and deal threads.</p>
+      <div class="swatch-row">
+        <div class="swatch">🔥 Builder Pack <span class="p">$2.49</span></div>
+        <div class="swatch">🤖 Bot Pack <span class="p">$2.49</span></div>
+        <div class="swatch">💰 Money Pack <span class="p">$2.49</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>How the House Makes Money</h2></div>
+  <div class="rev-grid">
+    <div class="rev-card"><div class="pct">12%</div><h5>Transaction Fee</h5><p>Charged on completed sales only. Nothing owed until a seller gets paid.</p></div>
+    <div class="rev-card"><div class="pct">+</div><h5>Boosted Listings</h5><p>Sellers pay to feature a listing at the top of category and search results.</p></div>
+    <div class="rev-card"><div class="pct">+</div><h5>Verified Seller Badge</h5><p>Monthly subscription — ID + build verification, priority placement, lower dispute friction.</p></div>
+    <div class="rev-card"><div class="pct">+</div><h5>Cosmetics</h5><p>Username fonts, flair packs, profile themes — pure margin, zero cost to fulfill.</p></div>
+    <div class="rev-card"><div class="pct">+</div><h5>Escrow Protection</h5><p>Optional buyer-side add-on: funds held until delivery/access is confirmed working.</p></div>
+    <div class="rev-card"><div class="pct">+</div><h5>Seller Analytics</h5><p>Paid dashboard tier — view velocity, conversion, and buyer-source data per listing.</p></div>
+    <div class="rev-card"><div class="pct">+</div><h5>Affiliate Referrals</h5><p>Buyers who bring buyers earn a cut; house keeps a spread on the referral pool.</p></div>
+    <div class="rev-card"><div class="pct">+</div><h5>Sponsored Category Slots</h5><p>Brands/tool makers can sponsor a category rail placement, separate from organic listings.</p></div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="section-head"><h2>Frequently Asked Questions</h2></div>
+  <div style="display:flex; flex-direction:column; gap:18px; max-width:820px;">
+    <div>
+      <h3 style="font-size:15px; margin-bottom:6px;">What is AI Build Market?</h3>
+      <p style="font-size:13.5px; color:var(--text-dim); line-height:1.6;">AI Build Market is an online marketplace where people who build AI tools, AI-powered businesses, prompt packs, product ideas, and games can list them for sale directly to buyers. The platform takes a transaction fee only when a sale completes.</p>
+    </div>
+    <div>
+      <h3 style="font-size:15px; margin-bottom:6px;">Where can I sell an AI tool I built?</h3>
+      <p style="font-size:13.5px; color:var(--text-dim); line-height:1.6;">AI Build Market lets you list an AI tool for free and puts it in front of buyers actively browsing by category, without needing to run your own ads. A transaction fee applies only when the tool sells.</p>
+    </div>
+    <div>
+      <h3 style="font-size:15px; margin-bottom:6px;">Can I sell an AI-built business on AI Build Market?</h3>
+      <p style="font-size:13.5px; color:var(--text-dim); line-height:1.6;">Yes. AI Build Market has a dedicated Businesses category for AI-built or AI-automated businesses, including sites, automation stacks, and licensable systems. Higher-value business listings go through identity verification on both sides before the sale completes.</p>
+    </div>
+    <div>
+      <h3 style="font-size:15px; margin-bottom:6px;">How much does AI Build Market charge to sell something?</h3>
+      <p style="font-size:13.5px; color:var(--text-dim); line-height:1.6;">Listing is free. AI Build Market charges a transaction fee only on completed sales, so sellers pay nothing upfront to list an AI tool, business, prompt pack, idea, or game.</p>
+    </div>
+    <div>
+      <h3 style="font-size:15px; margin-bottom:6px;">Is AI Build Market responsible for what's sold on the platform?</h3>
+      <p style="font-size:13.5px; color:var(--text-dim); line-height:1.6;">No. AI Build Market is a venue connecting independent buyers and sellers. Every sale is a direct agreement between buyer and seller, and all listings are sold as-is unless a seller states an additional guarantee in writing on the listing.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="legal-wrap">
+    <div class="legal-grid">
+      <div>
+        <h6>AI Build Market</h6>
+        <p style="font-size:13px; color:var(--text-dim); line-height:1.6; max-width:280px;">A marketplace for AI-built tools, businesses, ideas, prompts, and games. We connect builders to buyers — the deal itself is between the two of you.</p>
+      </div>
+      <div>
+        <h6>MARKETPLACE</h6>
+        <ul><li><a href="#">Browse Listings</a></li><li><a href="#">Sell a Build</a></li><li><a href="#">Verified Sellers</a></li><li><a href="#">Fee Schedule</a></li></ul>
+      </div>
+      <div>
+        <h6>TRUST &amp; SAFETY</h6>
+        <ul><li><a href="#">Dispute Process</a></li><li><a href="#">Escrow Protection</a></li><li><a href="#">Report a Listing</a></li><li><a href="#">DMCA / IP Claims</a></li></ul>
+      </div>
+      <div>
+        <h6>LEGAL</h6>
+        <ul>
+          <li><a class="legal-open" onclick="document.getElementById('legalModal').classList.add('open')">Terms Summary (open)</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Seller Agreement</a></li>
+          <li><a href="#">Tax &amp; 1099-K Info</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal-strip">
+      <b>How every sale works:</b> AI Build Market is a venue, not a party to the transaction. Every sale is a direct agreement between buyer and seller. AI Build Market provides the platform, payment processing, and buyer traffic, and takes a transaction fee for that — it does not build, own, warrant, or guarantee any listed tool, business, idea, prompt, or game, and is not responsible for performance, functionality, legality of use, or disputes arising after a sale completes. All listings are sold <b>as-is, where-is</b>, with no implied warranty of merchantability or fitness for a particular purpose unless a seller explicitly states an additional guarantee in writing on the listing itself.
+    </div>
+  </div>
+</footer>
+
+<div class="modal-bg" id="legalModal">
+  <div class="modal">
+    <span class="modal-close" onclick="document.getElementById('legalModal').classList.remove('open')">✕</span>
+    <h3>Terms Summary — Legal Framework Built Into AI Build Market</h3>
+    <p style="color:var(--text-dim); font-size:12px; margin-bottom:14px;"><b>Not legal advice.</b> This is a structural outline of the clauses a marketplace like this typically needs — have an actual attorney draft the binding ToS/Seller Agreement before launch, especially the arbitration and tax sections, which are jurisdiction-specific.</p>
+
+    <h4>1. MARKETPLACE FACILITATOR, NOT SELLER</h4>
+    <p>AI Build Market is defined as a venue connecting independent buyers and sellers. Title to any tool, code, business entity, prompt, or game transfers directly from seller to buyer. AI Build Market never takes ownership of listed goods and disclaims any role as manufacturer, developer, or warrantor of what's sold.</p>
+
+    <h4>2. LIMITATION OF LIABILITY / NO POST-SALE RESPONSIBILITY</h4>
+    <p>Once a transaction completes, AI Build Market's liability ends. No responsibility for bugs, downtime, revenue claims, business viability, IP validity, or any consequential/incidental damages. Liability capped at fees actually collected on that transaction (standard marketplace cap — protects against open-ended exposure).</p>
+
+    <h4>3. AS-IS / NO WARRANTY</h4>
+    <p>All goods sold "as-is." Any performance claims, revenue numbers, or guarantees come from the seller, not AI Build Market, and are the seller's sole representation and liability.</p>
+
+    <h4>4. IP OWNERSHIP &amp; AI-GENERATED CONTENT DISCLOSURE</h4>
+    <p>Sellers must warrant they have the right to sell what they're listing. Sellers must disclose that a listing was AI-generated or AI-assisted — this matters because AI-generated output has unsettled copyright status in the U.S. (Copyright Office has denied protection for purely AI-generated works). Buyers are told plainly: they may be buying something with limited or no copyright protection, and that's on them to evaluate before buying.</p>
+
+    <h4>5. DISPUTE RESOLUTION</h4>
+    <p>Mandatory good-faith negotiation window, then binding individual arbitration (AAA or similar), <b>class action waiver</b>. This is the single biggest liability shield for a marketplace at scale — one lawsuit becoming a class action is the scenario that kills platforms like this.</p>
+
+    <h4>6. ESCROW / PAYMENT HANDLING</h4>
+    <p>Funds held until delivery is confirmed (access granted, repo transferred, business docs handed off), then released to seller minus fee. This should run through Paid! since it's already your Stripe automation layer — Stripe Connect (destination charges) is the standard rail for marketplace split payments and 1099-K reporting per seller.</p>
+
+    <h4>7. MARKETPLACE FACILITATOR TAX LAWS</h4>
+    <p>Most U.S. states now legally require the <em>marketplace</em> (not the seller) to collect and remit sales tax above certain thresholds. This needs a tax engine (Stripe Tax or similar) wired in before you're doing real volume — this is one regulators actually enforce.</p>
+
+    <h4>8. PROHIBITED LISTINGS</h4>
+    <p>No stolen code/IP, no malware or exploit tools, no regulated financial products (unlicensed lending, securities, trading signals sold as guaranteed returns), no adult content, no anything requiring a license the seller doesn't hold (e.g., selling a "business" that's actually an unlicensed financial services operation).</p>
+
+    <h4>9. KYC ON HIGH-VALUE LISTINGS</h4>
+    <p>Anything sold as a "business" (LLC, revenue-generating asset, domain portfolio, etc.) above a set dollar threshold should require identity verification on both sides — this is standard for M&A-adjacent marketplaces and reduces fraud and chargeback risk substantially.</p>
+  </div>
+</div>
+
+<div class="modal-bg" id="loginModal">
+  <div class="modal" style="max-width:380px;">
+    <span class="modal-close" onclick="closeLogin()">✕</span>
+    <h3 style="font-size:18px;">Log In to Continue</h3>
+    <p style="font-size:12.5px; color:var(--text-dim); margin-bottom:4px;">Prices, seller identity, contact details, and listing comments are only visible to logged-in buyers.</p>
+    <div class="login-modal-body">
+      <input class="login-field" type="email" placeholder="Email address" id="loginEmail">
+      <input class="login-field" type="password" placeholder="Password">
+      <button class="btn login-btn" onclick="mockLogin()" style="padding:12px;">Log In</button>
+      <button class="btn btn-ghost" style="padding:12px;">Create a Free Account</button>
+    </div>
+    <p class="login-note"><b>Note:</b> this is a front-end demo — logging in here is not connected to a real authentication backend. In production, price/seller/contact/comment data must never be sent to the browser until the server verifies a real logged-in session; hiding it with CSS alone is not secure on its own.</p>
+  </div>
+</div>
+
+<script>
+function openLogin(){ document.getElementById('loginModal').classList.add('open'); }
+function closeLogin(){ document.getElementById('loginModal').classList.remove('open'); }
+function mockLogin(){
+  alert('Demo only — no real backend is connected. In production this would verify credentials server-side, then the server (not the browser) would decide whether to send price, seller, and contact data.');
+  closeLogin();
+}
+
+const listings = [
+  {cat:"AI TOOLS", icon:"🛠️", title:"Reddit-to-Storefront Auto Lister", desc:"Scrapes trending Reddit product mentions, auto-builds a Shopify draft listing with images pulled and rewritten.", price:"$149", seller:"forge_kade", verified:true},
+  {cat:"PROMPTS", icon:"📝", title:"Cold Email Sequence Pack (40 prompts)", desc:"Battle-tested B2B outbound prompt chain — subject line, body, 3 follow-ups, objection handling.", price:"$19", seller:"outreach_ivy", verified:false},
+  {cat:"BUSINESSES", icon:"🏢", title:"Turnkey Pinterest Affiliate Site", desc:"18mo aged domain, DA 22, autoposting pipeline included, $410/mo avg last 90 days (seller-reported).", price:"$3,200", seller:"nichequeen", verified:true},
+  {cat:"GAMES", icon:"🎮", title:"Idle Merge Game — Unity Source", desc:"Full Unity project, monetization hooks wired for rewarded video + IAP, ready to reskin.", price:"$399", seller:"pixel_forge", verified:true},
+  {cat:"IDEAS", icon:"💡", title:"Micro-SaaS Concept: Invoice Chaser", desc:"Full spec doc — problem, ICP, pricing model, competitor gaps. Build-ready, unbuilt.", price:"$59", seller:"idea_stack", verified:false},
+  {cat:"AI TOOLS", icon:"🛠️", title:"Voice Clone Pipeline (RunPod-ready)", desc:"Dockerized TTS voice cloning setup, deploy script included, works with 15min source audio.", price:"$89", seller:"audio_stack", verified:true},
+  {cat:"PROMPTS", icon:"📝", title:"E-commerce Product Description Engine", desc:"120-prompt library for auto-generating SEO product copy at scale across categories.", price:"$29", seller:"copy_forge", verified:false},
+  {cat:"BUSINESSES", icon:"🏢", title:"CashMoto-Style Whop Automation Clone", desc:"Full automation stack + 6mo of documented setup notes, license to resell included.", price:"$1,450", seller:"whop_ops", verified:true},
+];
+
+const grid = document.getElementById('demoGrid');
+listings.forEach(l=>{
+  const card = document.createElement('div');
+  card.className='card';
+  card.innerHTML = `
+    <div class="card-media"><span class="card-cat-tag">${l.cat}</span>${l.icon}</div>
+    <div class="card-body">
+      <div class="card-title">${l.title}</div>
+      <div class="card-desc">${l.desc}</div>
+      <div class="card-seller gated" onclick="openLogin()"><div class="seller-dot gate-blur"></div><span class="gate-blur">${l.seller}</span><span class="gate-label">🔒 Log in to see seller</span></div>
+      <div class="gated-comments" onclick="openLogin()">💬 <span>Log in to view comments</span></div>
+      <div class="card-footer">
+        <div class="gated" onclick="openLogin()"><div class="price gate-blur">${l.price}</div><div class="gate-label">🔒 Log in to see price</div></div>
+        <button class="btn btn-primary buy-btn" onclick="openLogin()">🔒 Log In</button>
+      </div>
+    </div>`;
+  grid.appendChild(card);
+});
+
+const pourEvents = [
+  {t:"AI Tools", d:"Cold Outreach Bot", a:"$212"},
+  {t:"Prompts", d:"Notion CRM Prompt Pack", a:"$24"},
+  {t:"Games", d:"Match-3 Unity Kit", a:"$310"},
+  {t:"Businesses", d:"Aged Affiliate Site", a:"$2,800"},
+  {t:"Ideas", d:"Micro-SaaS Spec: ReceiptSync", a:"$45"},
+  {t:"AI Tools", d:"Playwright Proposal Bot", a:"$175"},
+  {t:"Prompts", d:"Ad Creative Prompt Bundle", a:"$18"},
+  {t:"Businesses", d:"Whop Automation License", a:"$1,450"},
+];
+const track = document.getElementById('pourTrack');
+[...pourEvents, ...pourEvents].forEach(e=>{
+  const el = document.createElement('div');
+  el.className='pour-item';
+  el.innerHTML = `<span class="tag">${e.t}</span><span>${e.d} sold for</span><span class="amt mono">${e.a}</span>`;
+  track.appendChild(el);
+});
+</script>
+
+</body>
+</html>

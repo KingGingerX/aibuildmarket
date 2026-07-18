@@ -1,0 +1,155 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String
+  displayName   String
+  emailVerified DateTime?
+  isVerifiedSeller Boolean @default(false)
+  isAdmin       Boolean   @default(false)
+  stripeConnectId  String?   // Stripe Connect account id, set once seller starts onboarding
+  createdAt     DateTime  @default(now())
+
+  listings      Listing[]
+  comments      Comment[]
+  sessions      Session[]
+  orders        Order[]            @relation("BuyerOrders")
+  verificationTokens VerificationToken[]
+  cosmeticPurchases  CosmeticPurchase[]
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expires   DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+enum Category {
+  AI_TOOLS
+  BUSINESSES
+  IDEAS_IP
+  PROMPTS
+  GAMES
+}
+
+model Listing {
+  id          String    @id @default(cuid())
+  title       String
+  description String
+  category    Category
+  priceCents  Int?              // null = "Contact Seller"
+  imageUrl    String?           // /logos/<slug>.webp, null = category icon fallback
+  sellerId    String
+  seller      User      @relation(fields: [sellerId], references: [id])
+  active      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+
+  comments    Comment[]
+  orders      Order[]
+
+  @@index([category])
+  @@index([active, createdAt])
+}
+
+model Comment {
+  id         String   @id @default(cuid())
+  body       String
+  listingId  String
+  listing    Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  authorId   String
+  author     User     @relation(fields: [authorId], references: [id])
+  authorFontId String? // CosmeticPack.id (type FONT) the author had unlocked when posting
+  createdAt  DateTime @default(now())
+
+  @@index([listingId])
+}
+
+enum CosmeticType {
+  FONT
+  EMOJI
+}
+
+model CosmeticPack {
+  id          String        @id @default(cuid())
+  type        CosmeticType
+  slug        String        @unique
+  name        String
+  description String
+  // FONT: CSS font-family string (e.g. Google Fonts family name).
+  // EMOJI: JSON-encoded array of unicode emoji strings.
+  payload     String
+  priceCents  Int
+  active      Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+
+  purchases   CosmeticPurchase[]
+
+  @@index([type, active])
+}
+
+enum CosmeticPurchaseStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
+
+model CosmeticPurchase {
+  id              String                 @id @default(cuid())
+  userId          String
+  user            User                   @relation(fields: [userId], references: [id])
+  packId          String
+  pack            CosmeticPack           @relation(fields: [packId], references: [id])
+  stripeSessionId String                 @unique
+  amountCents     Int
+  status          CosmeticPurchaseStatus @default(PENDING)
+  createdAt       DateTime               @default(now())
+  completedAt     DateTime?
+
+  @@index([userId])
+  @@unique([userId, packId])
+}
+
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+  REFUNDED
+}
+
+model Order {
+  id                String      @id @default(cuid())
+  listingId         String
+  listing           Listing     @relation(fields: [listingId], references: [id])
+  buyerId           String
+  buyer             User        @relation("BuyerOrders", fields: [buyerId], references: [id])
+  stripeSessionId   String      @unique
+  amountCents       Int
+  platformFeeCents  Int
+  status            OrderStatus @default(PENDING)
+  createdAt         DateTime    @default(now())
+  completedAt       DateTime?
+
+  @@index([listingId])
+  @@index([buyerId])
+}
