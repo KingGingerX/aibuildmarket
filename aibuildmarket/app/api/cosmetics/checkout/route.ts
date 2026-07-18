@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { rateLimit, clientIp } from "@/lib/rateLimit";
 
 // POST /api/cosmetics/checkout { packId }
@@ -47,6 +47,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "You already own this pack." }, { status: 400 });
   }
 
+  const stripe = getStripe();
   const checkoutSession = await stripe.checkout.sessions.create({
     mode: "payment",
     payment_method_types: ["card"],

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import PayoutsConnectButton from "./PayoutsConnectButton";
 
 export default async function PayoutsPage() {
@@ -15,7 +15,7 @@ export default async function PayoutsPage() {
   let chargesEnabled = false;
   let detailsSubmitted = false;
   if (user.stripeConnectId) {
-    const account = await stripe.accounts.retrieve(user.stripeConnectId);
+    const account = await getStripe().accounts.retrieve(user.stripeConnectId);
     chargesEnabled = Boolean(account.charges_enabled);
     detailsSubmitted = Boolean(account.details_submitted);
   }

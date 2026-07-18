@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 
 // POST /api/stripe/connect — creates (if needed) a Stripe Express account for
 // the logged-in seller and returns a fresh onboarding link. Safe to call
@@ -19,6 +19,7 @@ export async function POST() {
     return NextResponse.json({ error: "Account not found." }, { status: 404 });
   }
 
+  const stripe = getStripe();
   let accountId = user.stripeConnectId;
   if (!accountId) {
     const account = await stripe.accounts.create({

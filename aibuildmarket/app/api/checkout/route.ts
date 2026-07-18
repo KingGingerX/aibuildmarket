@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { stripe, platformFeeFor } from "@/lib/stripe";
+import { getStripe, platformFeeFor } from "@/lib/stripe";
 import { rateLimit, clientIp } from "@/lib/rateLimit";
 
 // POST /api/checkout { listingId }
@@ -53,6 +53,7 @@ export async function POST(req: NextRequest) {
   // Verify live with Stripe that the seller's account can actually accept a
   // destination charge — presence of stripeConnectId alone doesn't mean
   // onboarding finished.
+  const stripe = getStripe();
   const account = await stripe.accounts.retrieve(listing.seller.stripeConnectId);
   if (!account.charges_enabled) {
     return NextResponse.json(
