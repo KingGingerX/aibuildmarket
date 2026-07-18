@@ -2,11 +2,13 @@ import "./globals.css";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 
+const siteUrl = process.env.NEXT_PUBLIC_URL || "https://aibuildmarket.com";
+
 export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || "http://localhost:3000"),
-  title: "AI Build Market — Buy & Sell AI Tools, AI Businesses, Prompts & Games",
+  metadataBase: new URL(siteUrl),
+  title: "AI Build Market | Buy and Sell AI Tools",
   description:
-    "AI Build Market is the marketplace to buy and sell AI-built tools, AI businesses, prompts, ideas, and games. Listing is free; the platform takes a transaction fee only on completed sales.",
+    "Buy and sell AI tools, AI businesses, prompts, ideas, and games. List free and pay a transaction fee only when a sale closes.",
   keywords: [
     "buy AI tools",
     "sell AI tools",
@@ -20,17 +22,19 @@ export const metadata = {
     "buy AI apps",
   ],
   icons: { icon: "/logo.jpg" },
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     siteName: "AI Build Market",
-    title: "AI Build Market — Buy & Sell AI Tools and AI Businesses",
-    description: "The marketplace for AI-built tools, businesses, prompts, ideas, and games. Real buyers, real sellers, one transaction fee.",
+    url: "/",
+    title: "AI Build Market | Buy and Sell AI Tools",
+    description: "Buy and sell AI tools, businesses, prompts, ideas, and games with free listings and sale-based fees.",
     images: ["/logo.jpg"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Build Market — Buy & Sell AI Tools and AI Businesses",
-    description: "Marketplace for AI-built tools, businesses, prompts, ideas, and games.",
+    title: "AI Build Market | Buy and Sell AI Tools",
+    description: "Buy and sell AI-built tools, businesses, prompts, ideas, and games.",
     images: ["/logo.jpg"],
   },
 };
@@ -40,7 +44,7 @@ const jsonLd = [
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "AI Build Market",
-    url: process.env.NEXT_PUBLIC_URL,
+    url: siteUrl,
     description: "A marketplace where builders sell AI-developed tools, businesses, prompts, ideas, and games directly to buyers.",
     slogan: "Sell what your AI built. Buy what works.",
   },
@@ -48,10 +52,10 @@ const jsonLd = [
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "AI Build Market",
-    url: process.env.NEXT_PUBLIC_URL,
+    url: siteUrl,
     potentialAction: {
       "@type": "SearchAction",
-      target: `${process.env.NEXT_PUBLIC_URL}/search?q={search_term}`,
+      target: `${siteUrl}/search?q={search_term}`,
       "query-input": "required name=search_term",
     },
   },

@@ -21,7 +21,7 @@ export default async function Nav() {
   return (
     <nav className="site-nav">
       <Link href="/" className="logo">
-        <Image src="/logo.jpg" alt="" width={26} height={26} />
+        <Image src="/logo.jpg" alt="AI Build Market logo" width={26} height={26} />
         AI<span className="slash">//</span>BUILD<span className="slash">//</span>MARKET
       </Link>
 

@@ -44,7 +44,7 @@ export default async function HomePage({
     <main>
       <section className="hero">
         <div className="hero-watermark" aria-hidden="true">
-          <Image src="/logo.jpg" alt="" fill sizes="1100px" />
+          <Image src="/logo.jpg" alt="AI Build Market marketplace logo" fill sizes="1100px" />
         </div>
         <h1>
           Sell what your <span className="accent">AI built</span>. Buy what works.
