@@ -19,3 +19,4 @@ next-env.d.ts
 .vercel/
 .neon_conn_tmp.txt
 .neon_conn_err.txt
+.env*

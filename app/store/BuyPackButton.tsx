@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { CheckIcon } from "../components/Icon";
 
 export default function BuyPackButton({
   packId,
@@ -16,7 +17,7 @@ export default function BuyPackButton({
   const [error, setError] = useState("");
 
   if (owned) {
-    return <div className="btn btn-ghost" style={{ pointerEvents: "none" }}>✓ Owned</div>;
+    return <div className="btn btn-ghost" style={{ pointerEvents: "none" }}><CheckIcon /> Owned</div>;
   }
 
   if (!isLoggedIn) {

@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getStripe } from "@/lib/stripe";
+import { CheckIcon } from "@/app/components/Icon";
 import PayoutsConnectButton from "./PayoutsConnectButton";
 
 export default async function PayoutsPage() {
@@ -28,7 +29,7 @@ export default async function PayoutsPage() {
       <div className="status-card">
         {chargesEnabled ? (
           <>
-            <div className="status-badge status-ok">✓ Payouts active</div>
+            <div className="status-badge status-ok"><CheckIcon /> Payouts active</div>
             <p className="dim">Your Stripe account is ready to receive payments. New sales will route straight to you.</p>
           </>
         ) : detailsSubmitted ? (

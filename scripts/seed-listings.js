@@ -92,13 +92,6 @@ const LISTINGS = [
     priceCents: null,
   },
   {
-    title: "SyncdLab",
-    description:
-      "Creator-brand marketplace platform (v0.1) — 32 routes covering discovery, messaging, campaigns, and admin tooling for connecting brands with creators.",
-    category: "BUSINESSES",
-    priceCents: null,
-  },
-  {
     title: "AutoDate",
     description:
       "Dating profile auto-signup CLI — provisions profiles across 6 dating sites. BASIC/PRO/ELITE tiers at $27/$47/$97 with Stripe + Flask payment integration.",

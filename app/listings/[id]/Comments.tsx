@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { LockIcon } from "../../components/Icon";
 
 type Comment = {
   id: string;
@@ -64,7 +65,7 @@ export default function Comments({ listingId, authenticated }: { listingId: stri
     return (
       <section className="comments-section">
         <h2>Comments</h2>
-        <p className="dim">🔒 Log in to view and post comments.</p>
+        <p className="dim"><LockIcon /> Log in to view and post comments.</p>
       </section>
     );
   }

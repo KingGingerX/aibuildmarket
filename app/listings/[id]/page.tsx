@@ -3,6 +3,7 @@ import Image from "next/image";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { CATEGORY_META } from "@/lib/categories";
+import { CATEGORY_ICONS, BoxIcon, LockIcon, CheckIcon } from "@/app/components/Icon";
 import BuyButton from "./BuyButton";
 import Comments from "./Comments";
 
@@ -26,7 +27,8 @@ export default async function ListingDetailPage({
 
   if (!listing || !listing.active) notFound();
 
-  const meta = CATEGORY_META[listing.category] ?? { label: listing.category, icon: "📦" };
+  const meta = CATEGORY_META[listing.category] ?? { label: listing.category, accent: "molten" as const };
+  const CatIcon = CATEGORY_ICONS[listing.category] ?? BoxIcon;
   const isOwner = viewerId === listing.sellerId;
 
   return (
@@ -50,7 +52,7 @@ export default async function ListingDetailPage({
           className="detail-logo"
         />
       )}
-      <div className="cat-tag">{meta.icon} {meta.label}</div>
+      <div className={`cat-tag accent-${meta.accent}`}><CatIcon className="cat-tag-icon" /> {meta.label}</div>
       <h1>{listing.title}</h1>
       <p className="desc">{listing.description}</p>
 
@@ -60,7 +62,7 @@ export default async function ListingDetailPage({
             <div className="price">{listing.priceCents ? `$${(listing.priceCents / 100).toFixed(2)}` : "Contact Seller"}</div>
             <div className="dim" style={{ fontSize: 12.5, marginTop: 6 }}>
               Seller: {listing.seller.displayName}
-              {listing.seller.isVerifiedSeller ? " ✓ verified" : ""}
+              {listing.seller.isVerifiedSeller ? <span className="verified"> <CheckIcon /> verified</span> : ""}
             </div>
           </div>
           {isOwner ? (
@@ -73,7 +75,7 @@ export default async function ListingDetailPage({
         </div>
       ) : (
         <div className="buy-box">
-          <div className="gate-note">🔒 Log in to see price and seller</div>
+          <div className="gate-note"><LockIcon /> Log in to see price and seller</div>
         </div>
       )}
 

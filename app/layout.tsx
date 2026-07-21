@@ -1,6 +1,7 @@
 import "./globals.css";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
+import PageWatermark from "./components/PageWatermark";
 
 const siteUrl = process.env.NEXT_PUBLIC_URL || "https://aibuildmarket.com";
 
@@ -21,7 +22,7 @@ export const metadata = {
     "micro SaaS marketplace",
     "buy AI apps",
   ],
-  icons: { icon: "/logo.jpg" },
+  icons: { icon: "/favicon.ico", shortcut: "/logo.jpg", apple: "/logo.jpg" },
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
@@ -29,13 +30,13 @@ export const metadata = {
     url: "/",
     title: "AI Build Market | Buy and Sell AI Tools",
     description: "Buy and sell AI tools, businesses, prompts, ideas, and games with free listings and sale-based fees.",
-    images: ["/logo.jpg"],
+    images: ["/og-banner.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "AI Build Market | Buy and Sell AI Tools",
     description: "Buy and sell AI-built tools, businesses, prompts, ideas, and games.",
-    images: ["/logo.jpg"],
+    images: ["/og-banner.png"],
   },
 };
 

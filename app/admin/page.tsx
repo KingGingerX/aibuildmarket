@@ -3,17 +3,19 @@ import { requireAdmin } from "@/lib/admin";
 import { prisma } from "@/lib/prisma";
 import CosmeticPackForm from "./CosmeticPackForm";
 import PackRow from "./PackRow";
+import ListingRow from "./ListingRow";
 
 export default async function AdminPage() {
   const session = await requireAdmin();
   if (!session) redirect("/");
 
-  const [userCount, listingCount, orderCount, revenue, packs] = await Promise.all([
+  const [userCount, listingCount, orderCount, revenue, packs, listings] = await Promise.all([
     prisma.user.count(),
     prisma.listing.count({ where: { active: true } }),
     prisma.order.count({ where: { status: "COMPLETED" } }),
     prisma.order.aggregate({ where: { status: "COMPLETED" }, _sum: { platformFeeCents: true } }),
     prisma.cosmeticPack.findMany({ orderBy: { createdAt: "desc" } }),
+    prisma.listing.findMany({ orderBy: { createdAt: "desc" } }),
   ]);
 
   const cosmeticRevenue = await prisma.cosmeticPurchase.aggregate({
@@ -40,7 +42,18 @@ export default async function AdminPage() {
         </div>
       </section>
 
-      <h2>Create Font / Emoji Pack</h2>
+      <h2>Listings ({listings.length})</h2>
+      {listings.length === 0 ? (
+        <p className="dim">No listings yet.</p>
+      ) : (
+        <div className="stack">
+          {listings.map((l) => (
+            <ListingRow key={l.id} listing={l} />
+          ))}
+        </div>
+      )}
+
+      <h2 style={{ marginTop: 32 }}>Create Font / Emoji Pack</h2>
       <CosmeticPackForm />
 
       <h2 style={{ marginTop: 32 }}>All Packs ({packs.length})</h2>

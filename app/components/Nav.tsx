@@ -21,8 +21,8 @@ export default async function Nav() {
   return (
     <nav className="site-nav">
       <Link href="/" className="logo">
-        <Image src="/logo.jpg" alt="AI Build Market logo" width={26} height={26} />
-        AI<span className="slash">//</span>BUILD<span className="slash">//</span>MARKET
+        <Image src="/logo.jpg" alt="AI Build Market logo" width={30} height={30} />
+        AI<span className="brand-accent">Build</span>Market<span className="brand-dim">.com</span>
       </Link>
 
       <MobileNavToggle>

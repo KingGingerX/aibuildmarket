@@ -4,6 +4,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import ListingCard, { ListingCardData } from "./components/ListingCard";
 import { CATEGORY_META, CATEGORY_ORDER } from "@/lib/categories";
+import { CATEGORY_ICONS } from "./components/Icon";
 
 export default async function HomePage({
   searchParams,
@@ -43,8 +44,8 @@ export default async function HomePage({
   return (
     <main>
       <section className="hero">
-        <div className="hero-watermark" aria-hidden="true">
-          <Image src="/logo.jpg" alt="AI Build Market marketplace logo" fill sizes="1100px" />
+        <div className="hero-watermark city-watermark" aria-hidden="true">
+          <Image src="/city_logo.png" alt="AI Build Market city skyline watermark" fill sizes="1200px" priority />
         </div>
         <h1>
           Sell what your <span className="accent">AI built</span>. Buy what works.
@@ -68,9 +69,10 @@ export default async function HomePage({
           </Link>
           {CATEGORY_ORDER.map((value) => {
             const meta = CATEGORY_META[value];
+            const CatIcon = CATEGORY_ICONS[value];
             return (
               <Link key={value} href={`/?category=${value}`} className={`cat-pill${activeCategory === value ? " active" : ""}`}>
-                <span className="cat-icon">{meta.icon}</span>
+                <span className={`cat-icon-chip accent-${meta.accent}`}><CatIcon /></span>
                 <span className="cat-name">{meta.label}</span>
                 <span className="cat-count mono">{countByCategory[value] ?? 0}</span>
               </Link>
