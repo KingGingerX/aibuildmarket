@@ -44,8 +44,8 @@ export default async function HomePage({
   return (
     <main>
       <section className="hero">
-        <div className="hero-watermark city-watermark" aria-hidden="true">
-          <Image src="/city_logo.png" alt="AI Build Market city skyline watermark" fill sizes="1200px" priority />
+        <div className="hero-watermark koi-watermark" aria-hidden="true">
+          <Image src="/logo_icon.png" alt="AI Build Market koi fish watermark" fill sizes="1200px" priority />
         </div>
         <h1>
           Sell what your <span className="accent">AI built</span>. Buy what works.
