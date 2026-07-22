@@ -42,11 +42,12 @@ export default async function HomePage({
   }));
 
   return (
-    <main>
+    <>
+      <div className="page-koi-watermark" aria-hidden="true">
+        <Image src="/logo_icon.png" alt="AI Build Market koi fish watermark" fill sizes="820px" priority />
+      </div>
+      <main>
       <section className="hero">
-        <div className="hero-watermark koi-watermark" aria-hidden="true">
-          <Image src="/logo_icon.png" alt="AI Build Market koi fish watermark" fill sizes="1200px" priority />
-        </div>
         <h1>
           Sell what your <span className="accent">AI built</span>. Buy what works.
         </h1>
@@ -128,6 +129,7 @@ export default async function HomePage({
           </div>
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 }
