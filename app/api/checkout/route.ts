@@ -50,44 +50,53 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Verify live with Stripe that the seller's account can actually accept a
-  // destination charge — presence of stripeConnectId alone doesn't mean
-  // onboarding finished.
-  const stripe = getStripe();
-  const account = await stripe.accounts.retrieve(listing.seller.stripeConnectId);
-  if (!account.charges_enabled) {
-    return NextResponse.json(
-      { error: "Seller's payout account isn't fully verified yet." },
-      { status: 400 }
-    );
-  }
-
   const platformFee = platformFeeFor(listing.priceCents);
 
   // NOTE: this calls Stripe directly. Swapping to Paid! (this account's existing
   // Stripe automation layer) is the documented next step so product/webhook
   // setup stays centralized — not required for this to work correctly today.
-  const checkoutSession = await stripe.checkout.sessions.create({
-    mode: "payment",
-    payment_method_types: ["card"],
-    line_items: [
-      {
-        price_data: {
-          currency: "usd",
-          product_data: { name: listing.title },
-          unit_amount: listing.priceCents,
+  let checkoutSession;
+  try {
+    const stripe = getStripe();
+    // Verify live with Stripe that the seller's account can actually accept a
+    // destination charge — presence of stripeConnectId alone doesn't mean
+    // onboarding finished.
+    const account = await stripe.accounts.retrieve(listing.seller.stripeConnectId);
+    if (!account.charges_enabled) {
+      return NextResponse.json(
+        { error: "Seller's payout account isn't fully verified yet." },
+        { status: 400 }
+      );
+    }
+
+    checkoutSession = await stripe.checkout.sessions.create({
+      mode: "payment",
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: { name: listing.title },
+            unit_amount: listing.priceCents,
+          },
+          quantity: 1,
         },
-        quantity: 1,
+      ],
+      payment_intent_data: {
+        application_fee_amount: platformFee,
+        transfer_data: { destination: listing.seller.stripeConnectId },
       },
-    ],
-    payment_intent_data: {
-      application_fee_amount: platformFee,
-      transfer_data: { destination: listing.seller.stripeConnectId },
-    },
-    metadata: { listingId: listing.id, buyerId },
-    success_url: `${process.env.NEXT_PUBLIC_URL}/listings/${listing.id}?purchase=success`,
-    cancel_url: `${process.env.NEXT_PUBLIC_URL}/listings/${listing.id}?purchase=cancelled`,
-  });
+      metadata: { listingId: listing.id, buyerId },
+      success_url: `${process.env.NEXT_PUBLIC_URL}/listings/${listing.id}?purchase=success`,
+      cancel_url: `${process.env.NEXT_PUBLIC_URL}/listings/${listing.id}?purchase=cancelled`,
+    });
+  } catch (err) {
+    console.error("[checkout] Stripe error:", (err as Error).message);
+    return NextResponse.json(
+      { error: "Payments are temporarily unavailable. Try again shortly." },
+      { status: 502 }
+    );
+  }
 
   await prisma.order.create({
     data: {

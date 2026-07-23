@@ -19,31 +19,39 @@ export async function POST() {
     return NextResponse.json({ error: "Account not found." }, { status: 404 });
   }
 
-  const stripe = getStripe();
-  let accountId = user.stripeConnectId;
-  if (!accountId) {
-    const account = await stripe.accounts.create({
-      type: "express",
-      email: user.email,
-      capabilities: {
-        card_payments: { requested: true },
-        transfers: { requested: true },
-      },
+  try {
+    const stripe = getStripe();
+    let accountId = user.stripeConnectId;
+    if (!accountId) {
+      const account = await stripe.accounts.create({
+        type: "express",
+        email: user.email,
+        capabilities: {
+          card_payments: { requested: true },
+          transfers: { requested: true },
+        },
+      });
+      accountId = account.id;
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { stripeConnectId: accountId },
+      });
+    }
+
+    const baseUrl = process.env.NEXT_PUBLIC_URL;
+    const accountLink = await stripe.accountLinks.create({
+      account: accountId,
+      refresh_url: `${baseUrl}/sell/payouts`,
+      return_url: `${baseUrl}/sell/payouts?onboarded=1`,
+      type: "account_onboarding",
     });
-    accountId = account.id;
-    await prisma.user.update({
-      where: { id: user.id },
-      data: { stripeConnectId: accountId },
-    });
+
+    return NextResponse.json({ url: accountLink.url });
+  } catch (err) {
+    console.error("[stripe connect] Stripe error:", (err as Error).message);
+    return NextResponse.json(
+      { error: "Stripe is temporarily unavailable. Try again shortly." },
+      { status: 502 }
+    );
   }
-
-  const baseUrl = process.env.NEXT_PUBLIC_URL;
-  const accountLink = await stripe.accountLinks.create({
-    account: accountId,
-    refresh_url: `${baseUrl}/sell/payouts`,
-    return_url: `${baseUrl}/sell/payouts?onboarded=1`,
-    type: "account_onboarding",
-  });
-
-  return NextResponse.json({ url: accountLink.url });
 }

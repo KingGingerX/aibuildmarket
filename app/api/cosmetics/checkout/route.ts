@@ -47,24 +47,33 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "You already own this pack." }, { status: 400 });
   }
 
-  const stripe = getStripe();
-  const checkoutSession = await stripe.checkout.sessions.create({
-    mode: "payment",
-    payment_method_types: ["card"],
-    line_items: [
-      {
-        price_data: {
-          currency: "usd",
-          product_data: { name: `${pack.name} (${pack.type === "FONT" ? "Font Pack" : "Emoji Pack"})` },
-          unit_amount: pack.priceCents,
+  let checkoutSession;
+  try {
+    const stripe = getStripe();
+    checkoutSession = await stripe.checkout.sessions.create({
+      mode: "payment",
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: { name: `${pack.name} (${pack.type === "FONT" ? "Font Pack" : "Emoji Pack"})` },
+            unit_amount: pack.priceCents,
+          },
+          quantity: 1,
         },
-        quantity: 1,
-      },
-    ],
-    metadata: { cosmeticPackId: pack.id, userId },
-    success_url: `${process.env.NEXT_PUBLIC_URL}/store?purchase=success`,
-    cancel_url: `${process.env.NEXT_PUBLIC_URL}/store?purchase=cancelled`,
-  });
+      ],
+      metadata: { cosmeticPackId: pack.id, userId },
+      success_url: `${process.env.NEXT_PUBLIC_URL}/store?purchase=success`,
+      cancel_url: `${process.env.NEXT_PUBLIC_URL}/store?purchase=cancelled`,
+    });
+  } catch (err) {
+    console.error("[cosmetics checkout] Stripe error:", (err as Error).message);
+    return NextResponse.json(
+      { error: "Payments are temporarily unavailable. Try again shortly." },
+      { status: 502 }
+    );
+  }
 
   // One purchase row per (userId, packId) ever. A prior PENDING/CANCELLED
   // attempt gets its session id replaced rather than erroring on retry.

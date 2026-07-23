@@ -37,24 +37,33 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     return NextResponse.json({ error: "Only active listings can be boosted." }, { status: 400 });
   }
 
-  const stripe = getStripe();
-  const checkoutSession = await stripe.checkout.sessions.create({
-    mode: "payment",
-    payment_method_types: ["card"],
-    line_items: [
-      {
-        price_data: {
-          currency: "usd",
-          product_data: { name: `Boost: ${listing.title} (${BOOST_DAYS} days)` },
-          unit_amount: BOOST_PRICE_CENTS,
+  let checkoutSession;
+  try {
+    const stripe = getStripe();
+    checkoutSession = await stripe.checkout.sessions.create({
+      mode: "payment",
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: { name: `Boost: ${listing.title} (${BOOST_DAYS} days)` },
+            unit_amount: BOOST_PRICE_CENTS,
+          },
+          quantity: 1,
         },
-        quantity: 1,
-      },
-    ],
-    metadata: { boostListingId: listing.id, boostDays: String(BOOST_DAYS) },
-    success_url: `${process.env.NEXT_PUBLIC_URL}/sell/listings?boosted=1`,
-    cancel_url: `${process.env.NEXT_PUBLIC_URL}/sell/listings?boosted=cancelled`,
-  });
+      ],
+      metadata: { boostListingId: listing.id, boostDays: String(BOOST_DAYS) },
+      success_url: `${process.env.NEXT_PUBLIC_URL}/sell/listings?boosted=1`,
+      cancel_url: `${process.env.NEXT_PUBLIC_URL}/sell/listings?boosted=cancelled`,
+    });
+  } catch (err) {
+    console.error("[boost checkout] Stripe error:", (err as Error).message);
+    return NextResponse.json(
+      { error: "Payments are temporarily unavailable. Try again shortly." },
+      { status: 502 }
+    );
+  }
 
   await prisma.boostPurchase.create({
     data: {

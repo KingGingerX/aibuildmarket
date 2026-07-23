@@ -15,10 +15,16 @@ export default async function PayoutsPage() {
 
   let chargesEnabled = false;
   let detailsSubmitted = false;
+  let stripeUnavailable = false;
   if (user.stripeConnectId) {
-    const account = await getStripe().accounts.retrieve(user.stripeConnectId);
-    chargesEnabled = Boolean(account.charges_enabled);
-    detailsSubmitted = Boolean(account.details_submitted);
+    try {
+      const account = await getStripe().accounts.retrieve(user.stripeConnectId);
+      chargesEnabled = Boolean(account.charges_enabled);
+      detailsSubmitted = Boolean(account.details_submitted);
+    } catch (err) {
+      console.error("[payouts page] Stripe error:", (err as Error).message);
+      stripeUnavailable = true;
+    }
   }
 
   return (
@@ -27,7 +33,12 @@ export default async function PayoutsPage() {
       <p className="dim">Connect a Stripe account so buyers can pay you directly. AI Build Market takes its 5% fee at checkout — the rest lands in your Stripe balance.</p>
 
       <div className="status-card">
-        {chargesEnabled ? (
+        {stripeUnavailable ? (
+          <>
+            <div className="status-badge status-off">Stripe unavailable</div>
+            <p className="dim">Couldn&apos;t reach Stripe just now — this is temporary, try refreshing in a bit.</p>
+          </>
+        ) : chargesEnabled ? (
           <>
             <div className="status-badge status-ok"><CheckIcon /> Payouts active</div>
             <p className="dim">Your Stripe account is ready to receive payments. New sales will route straight to you.</p>
