@@ -9,7 +9,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = process.env.NEXT_PUBLIC_URL || "https://aibuildmarket.com";
 
   const listings = await prisma.listing.findMany({
-    where: { active: true },
+    where: { status: "ACTIVE" },
     select: { id: true, createdAt: true },
     orderBy: { createdAt: "desc" },
     take: 5000,

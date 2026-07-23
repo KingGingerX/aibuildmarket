@@ -18,14 +18,22 @@ export default async function HomePage({
   const activeCategory = category && CATEGORY_ORDER.includes(category) ? category : undefined;
 
   const listings = await prisma.listing.findMany({
-    where: { active: true, ...(activeCategory ? { category: activeCategory as never } : {}) },
+    where: { status: "ACTIVE", ...(activeCategory ? { category: activeCategory as never } : {}) },
     orderBy: { createdAt: "desc" },
     include: isLoggedIn ? { seller: { select: { displayName: true, isVerifiedSeller: true } } } : undefined,
   });
 
+  const now = Date.now();
+  listings.sort((a, b) => {
+    const aBoosted = Boolean(a.boostedUntil && a.boostedUntil.getTime() > now);
+    const bBoosted = Boolean(b.boostedUntil && b.boostedUntil.getTime() > now);
+    if (aBoosted !== bBoosted) return aBoosted ? -1 : 1;
+    return 0;
+  });
+
   const counts = await prisma.listing.groupBy({
     by: ["category"],
-    where: { active: true },
+    where: { status: "ACTIVE" },
     _count: true,
   });
   const countByCategory = Object.fromEntries(counts.map((c) => [c.category, c._count]));
@@ -33,6 +41,7 @@ export default async function HomePage({
 
   const cards: ListingCardData[] = listings.map((l) => ({
     id: l.id,
+    boosted: Boolean(l.boostedUntil && l.boostedUntil.getTime() > now),
     title: l.title,
     description: l.description,
     category: l.category,
@@ -51,7 +60,7 @@ export default async function HomePage({
         <h1>
           Sell what your <span className="accent">AI built</span>. Buy what works.
         </h1>
-        <p>Tools, businesses, prompts, ideas, and games — built with AI, sold to real buyers. We bring the traffic. You bring the build.</p>
+        <p>Tools, businesses, prompts, ideas, and games — built with AI, sold outright to real buyers. One-time sale, full ownership transfer — no subscriptions, no hosted access. We bring the traffic. You bring the build.</p>
         <div className="hero-ctas">
           <a href="#listings" className="btn btn-primary btn-lg">Browse the Marketplace</a>
           <Link href="/listings/new" className="btn btn-ghost btn-lg">List Your First Build — Free</Link>
@@ -106,7 +115,7 @@ export default async function HomePage({
             <Link href="/listings/new" className="btn btn-primary">List a Build — Takes 4 Minutes</Link>
           </div>
           <div className="stat-row">
-            <div className="stat"><div className="num">8%</div><div className="lbl">house fee<br />(sale only)</div></div>
+            <div className="stat"><div className="num">5%</div><div className="lbl">house fee<br />(sale only)</div></div>
             <div className="stat"><div className="num">$0</div><div className="lbl">to list<br />a build</div></div>
           </div>
         </div>
@@ -117,7 +126,7 @@ export default async function HomePage({
         <div style={{ display: "flex", flexDirection: "column", gap: 18, maxWidth: 820 }}>
           <div>
             <h3 style={{ fontSize: 15, marginBottom: 6 }}>What is AI Build Market?</h3>
-            <p className="dim" style={{ fontSize: 13.5, lineHeight: 1.6 }}>AI Build Market is an online marketplace where people who build AI tools, AI-powered businesses, prompt packs, product ideas, and games can list them for sale directly to buyers. The platform takes a transaction fee only when a sale completes.</p>
+            <p className="dim" style={{ fontSize: 13.5, lineHeight: 1.6 }}>AI Build Market is an online marketplace where people who build AI tools, AI-powered businesses, prompt packs, product ideas, and games can list them for sale directly to buyers. Every sale is a one-time, outright transfer of ownership — buyers are not signing up for a subscription, access plan, or hosted service. The platform takes a transaction fee only when a sale completes.</p>
           </div>
           <div>
             <h3 style={{ fontSize: 15, marginBottom: 6 }}>How much does AI Build Market charge to sell something?</h3>

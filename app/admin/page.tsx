@@ -11,7 +11,7 @@ export default async function AdminPage() {
 
   const [userCount, listingCount, orderCount, revenue, packs, listings] = await Promise.all([
     prisma.user.count(),
-    prisma.listing.count({ where: { active: true } }),
+    prisma.listing.count({ where: { status: "ACTIVE" } }),
     prisma.order.count({ where: { status: "COMPLETED" } }),
     prisma.order.aggregate({ where: { status: "COMPLETED" }, _sum: { platformFeeCents: true } }),
     prisma.cosmeticPack.findMany({ orderBy: { createdAt: "desc" } }),

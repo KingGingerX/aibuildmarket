@@ -3,7 +3,7 @@ import { requireAdmin } from "@/lib/admin";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 
-const patchSchema = z.object({ active: z.boolean() });
+const patchSchema = z.object({ status: z.enum(["ACTIVE", "SOLD", "INACTIVE"]) });
 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await requireAdmin();

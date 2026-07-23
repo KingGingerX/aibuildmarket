@@ -43,7 +43,7 @@ export default function NewListingPage() {
   return (
     <main className="page-shell" style={{ maxWidth: 640 }}>
       <h1>List a Build</h1>
-      <p className="dim">Free to list. AI Build Market takes an 8% fee only when it sells. You'll need a connected Stripe payout account before a buyer can complete checkout — set that up from <a href="/sell/payouts" style={{ color: "var(--molten)" }}>Payouts</a>.</p>
+      <p className="dim">Free to list. AI Build Market takes a 5% fee only when it sells. You'll need a connected Stripe payout account before a buyer can complete checkout — set that up from <a href="/sell/payouts" style={{ color: "var(--molten)" }}>Payouts</a>.</p>
 
       <form onSubmit={handleSubmit} className="stack" style={{ marginTop: 24 }}>
         <div className="field">

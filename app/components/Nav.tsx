@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 import LogoutButton from "./LogoutButton";
 import MobileNavToggle from "./MobileNavToggle";
 
@@ -17,6 +18,10 @@ export default async function Nav() {
   const isLoggedIn = Boolean(session?.user);
   const name = session?.user?.name;
   const isAdmin = Boolean((session?.user as { isAdmin?: boolean } | undefined)?.isAdmin);
+  const userId = session?.user ? (session.user as { id: string }).id : undefined;
+  const avatarUrl = userId
+    ? (await prisma.user.findUnique({ where: { id: userId }, select: { avatarUrl: true } }))?.avatarUrl
+    : null;
 
   return (
     <nav className="site-nav">
@@ -35,10 +40,15 @@ export default async function Nav() {
         <div className="nav-right">
           {isLoggedIn ? (
             <>
-              <div className="avatar-flair">
-                <div className="avatar-dot" />
+              <Link href="/account" className="avatar-flair">
+                {avatarUrl ? (
+                  <Image src={avatarUrl} alt="" width={26} height={26} unoptimized style={{ borderRadius: "50%", objectFit: "cover" }} />
+                ) : (
+                  <div className="avatar-dot" />
+                )}
                 <span className="flair-name mono">{name}</span>
-              </div>
+              </Link>
+              <Link href="/sell/listings" className="btn btn-ghost">My Listings</Link>
               <Link href="/store" className="btn btn-ghost">Store</Link>
               <Link href="/sell/payouts" className="btn btn-ghost">Payouts</Link>
               <Link href="/listings/new" className="btn btn-primary">Sell Something</Link>

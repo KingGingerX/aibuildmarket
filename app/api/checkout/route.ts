@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     include: { seller: true },
   });
 
-  if (!listing || !listing.active) {
+  if (!listing || listing.status !== "ACTIVE") {
     return NextResponse.json({ error: "Listing not found." }, { status: 404 });
   }
   if (listing.sellerId === buyerId) {

@@ -3,9 +3,16 @@ import Image from "next/image";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { CATEGORY_META } from "@/lib/categories";
+import Link from "next/link";
 import { CATEGORY_ICONS, BoxIcon, LockIcon, CheckIcon } from "@/app/components/Icon";
 import BuyButton from "./BuyButton";
 import Comments from "./Comments";
+
+const STATUS_BADGE: Record<string, string> = {
+  ACTIVE: "status-ok",
+  SOLD: "status-sold",
+  INACTIVE: "status-off",
+};
 
 export default async function ListingDetailPage({
   params,
@@ -25,11 +32,12 @@ export default async function ListingDetailPage({
     include: { seller: true },
   });
 
-  if (!listing || !listing.active) notFound();
+  if (!listing) notFound();
+  const isOwner = viewerId === listing.sellerId;
+  if (listing.status !== "ACTIVE" && !isOwner) notFound();
 
   const meta = CATEGORY_META[listing.category] ?? { label: listing.category, accent: "molten" as const };
   const CatIcon = CATEGORY_ICONS[listing.category] ?? BoxIcon;
-  const isOwner = viewerId === listing.sellerId;
 
   return (
     <main className="listing-detail">
@@ -52,7 +60,11 @@ export default async function ListingDetailPage({
           className="detail-logo"
         />
       )}
-      <div className={`cat-tag accent-${meta.accent}`}><CatIcon className="cat-tag-icon" /> {meta.label}</div>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+        <div className={`cat-tag accent-${meta.accent}`}><CatIcon className="cat-tag-icon" /> {meta.label}</div>
+        {isOwner && <span className={`status-badge ${STATUS_BADGE[listing.status]}`}>{listing.status}</span>}
+        {listing.crossPosted && <span className="dim" style={{ fontSize: 11.5 }}>Also listed elsewhere</span>}
+      </div>
       <h1>{listing.title}</h1>
       <p className="desc">{listing.description}</p>
 
@@ -66,7 +78,9 @@ export default async function ListingDetailPage({
             </div>
           </div>
           {isOwner ? (
-            <p className="dim" style={{ fontSize: 13 }}>This is your listing.</p>
+            <Link href="/sell/listings" className="btn btn-ghost">Manage This Listing</Link>
+          ) : listing.status === "SOLD" ? (
+            <p className="dim" style={{ fontSize: 13 }}>This listing has sold.</p>
           ) : listing.priceCents ? (
             <BuyButton listingId={listing.id} />
           ) : (

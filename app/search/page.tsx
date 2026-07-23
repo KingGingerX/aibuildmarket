@@ -14,7 +14,7 @@ export default async function SearchPage({
   const listings = q
     ? await prisma.listing.findMany({
         where: {
-          active: true,
+          status: "ACTIVE",
           OR: [
             { title: { contains: q, mode: "insensitive" } },
             { description: { contains: q, mode: "insensitive" } },

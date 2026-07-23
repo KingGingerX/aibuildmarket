@@ -20,45 +20,45 @@ export default async function StorePage() {
   const emojiPacks = packs.filter((p) => p.type === "EMOJI");
 
   return (
-    <main style={{ maxWidth: 960, margin: "0 auto", padding: "40px 20px" }}>
+    <main className="page-shell" style={{ maxWidth: 960 }}>
       <h1>Store</h1>
       <p className="dim">
-        Font packs and emoji packs for your comments and profile. Unlocked packs show up in the composer everywhere on the site.
+        Cosmetic packs for how your name and comments look elsewhere on the site — not related to listing a build for sale.
+        Unlock a pack once and it&apos;s yours to use anywhere on AI Build Market.
         {isAdmin && " Your admin account has every pack unlocked automatically."}
+        {!isLoggedIn && " Log in to unlock a pack — the price shown is what it costs, one time, forever."}
       </p>
 
-      <h2 style={{ marginTop: 32 }}>Font Packs</h2>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 16 }}>
-        {fontPacks.map((p) => (
-          <div key={p.id} className="stat-card">
-            <div style={{ fontFamily: p.payload, fontSize: 20 }}>{p.name}</div>
-            <div className="dim" style={{ fontSize: 13, margin: "6px 0" }}>{p.description}</div>
-            <BuyPackButton
-              packId={p.id}
-              priceCents={p.priceCents}
-              owned={isAdmin || ("purchases" in p && (p as unknown as { purchases: unknown[] }).purchases.length > 0)}
-              isLoggedIn={isLoggedIn}
-            />
-          </div>
-        ))}
+      <h2 style={{ marginTop: 36, marginBottom: 4 }}>Font Packs</h2>
+      <p className="dim" style={{ fontSize: 13, marginBottom: 16 }}>Changes the font your display name and comments render in.</p>
+      <div className="grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))" }}>
+        {fontPacks.map((p) => {
+          const owned = isAdmin || ("purchases" in p && (p as unknown as { purchases: unknown[] }).purchases.length > 0);
+          return (
+            <div key={p.id} className="card store-pack-card" style={{ padding: 18 }}>
+              <div style={{ fontFamily: p.payload, fontSize: 22 }}>{p.name}</div>
+              <div className="dim" style={{ fontSize: 12.5, margin: "8px 0 14px", lineHeight: 1.5 }}>{p.description}</div>
+              <BuyPackButton packId={p.id} priceCents={p.priceCents} owned={owned} isLoggedIn={isLoggedIn} />
+            </div>
+          );
+        })}
         {fontPacks.length === 0 && <p className="dim">No font packs yet.</p>}
       </div>
 
-      <h2 style={{ marginTop: 32 }}>Emoji Packs</h2>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 16 }}>
-        {emojiPacks.map((p) => (
-          <div key={p.id} className="stat-card">
-            <div style={{ fontSize: 20 }}>{JSON.parse(p.payload).slice(0, 6).join(" ")}</div>
-            <div style={{ marginTop: 4 }}>{p.name}</div>
-            <div className="dim" style={{ fontSize: 13, margin: "6px 0" }}>{p.description}</div>
-            <BuyPackButton
-              packId={p.id}
-              priceCents={p.priceCents}
-              owned={isAdmin || ("purchases" in p && (p as unknown as { purchases: unknown[] }).purchases.length > 0)}
-              isLoggedIn={isLoggedIn}
-            />
-          </div>
-        ))}
+      <h2 style={{ marginTop: 36, marginBottom: 4 }}>Emoji Packs</h2>
+      <p className="dim" style={{ fontSize: 13, marginBottom: 16 }}>Unlocks a set of emoji shortcuts in the comment composer.</p>
+      <div className="grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))" }}>
+        {emojiPacks.map((p) => {
+          const owned = isAdmin || ("purchases" in p && (p as unknown as { purchases: unknown[] }).purchases.length > 0);
+          return (
+            <div key={p.id} className="card store-pack-card" style={{ padding: 18 }}>
+              <div style={{ fontSize: 22 }}>{JSON.parse(p.payload).slice(0, 6).join(" ")}</div>
+              <div style={{ marginTop: 6, fontWeight: 600 }}>{p.name}</div>
+              <div className="dim" style={{ fontSize: 12.5, margin: "6px 0 14px", lineHeight: 1.5 }}>{p.description}</div>
+              <BuyPackButton packId={p.id} priceCents={p.priceCents} owned={owned} isLoggedIn={isLoggedIn} />
+            </div>
+          );
+        })}
         {emojiPacks.length === 0 && <p className="dim">No emoji packs yet.</p>}
       </div>
     </main>

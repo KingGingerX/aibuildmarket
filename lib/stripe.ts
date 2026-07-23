@@ -14,8 +14,13 @@ export function getStripe(): Stripe {
   return stripeClient;
 }
 
-export const PLATFORM_FEE_BPS = 800;
+export const PLATFORM_FEE_BPS = 500;
 
 export function platformFeeFor(priceCents: number): number {
   return Math.round((priceCents * PLATFORM_FEE_BPS) / 10000);
 }
+
+// Listing boost: flat fee, sorts the listing above non-boosted listings in
+// browse/search while boostedUntil is in the future.
+export const BOOST_PRICE_CENTS = 900;
+export const BOOST_DAYS = 7;

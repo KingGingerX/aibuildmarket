@@ -33,6 +33,7 @@ export default function LoginPage() {
           <div className="field">
             <label>Password</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <a href="/forgot-password" style={{ color: "var(--molten)", fontSize: 12.5, alignSelf: "flex-end" }}>Forgot password?</a>
           </div>
           {error && <div className="form-error">{error}</div>}
           <button type="submit" className="btn btn-primary">Log In</button>

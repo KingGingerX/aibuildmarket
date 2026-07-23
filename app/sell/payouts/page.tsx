@@ -24,7 +24,7 @@ export default async function PayoutsPage() {
   return (
     <main className="page-shell">
       <h1>Seller Payouts</h1>
-      <p className="dim">Connect a Stripe account so buyers can pay you directly. AI Build Market takes its 8% fee at checkout — the rest lands in your Stripe balance.</p>
+      <p className="dim">Connect a Stripe account so buyers can pay you directly. AI Build Market takes its 5% fee at checkout — the rest lands in your Stripe balance.</p>
 
       <div className="status-card">
         {chargesEnabled ? (

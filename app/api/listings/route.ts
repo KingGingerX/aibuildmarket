@@ -17,11 +17,22 @@ export async function GET(req: NextRequest) {
   const isLoggedIn = Boolean(session?.user);
 
   const listings = await prisma.listing.findMany({
-    where: { active: true },
+    where: { status: "ACTIVE" },
     orderBy: { createdAt: "desc" },
     include: isLoggedIn
       ? { seller: { select: { displayName: true, isVerifiedSeller: true, email: true } } }
       : undefined,
+  });
+
+  // Boosted-and-still-active-now listings sort first; everything else keeps
+  // its normal newest-first order. Done in JS, not SQL, because "boosted"
+  // depends on comparing boostedUntil to the current instant, not a static column.
+  const now = Date.now();
+  listings.sort((a, b) => {
+    const aBoosted = Boolean(a.boostedUntil && a.boostedUntil.getTime() > now);
+    const bBoosted = Boolean(b.boostedUntil && b.boostedUntil.getTime() > now);
+    if (aBoosted !== bBoosted) return aBoosted ? -1 : 1;
+    return 0; // stable sort preserves the createdAt desc order from the query
   });
 
   const shaped = listings.map((l) => {
@@ -33,6 +44,8 @@ export async function GET(req: NextRequest) {
       category: l.category,
       imageUrl: l.imageUrl,
       createdAt: l.createdAt,
+      crossPosted: l.crossPosted,
+      boosted: Boolean(l.boostedUntil && l.boostedUntil.getTime() > now),
     };
 
     if (!isLoggedIn) {

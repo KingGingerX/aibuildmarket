@@ -7,20 +7,20 @@ type Listing = {
   title: string;
   category: string;
   priceCents: number | null;
-  active: boolean;
+  status: "ACTIVE" | "SOLD" | "INACTIVE";
 };
 
 export default function ListingRow({ listing }: { listing: Listing }) {
   const [busy, setBusy] = useState(false);
   const router = useRouter();
 
-  async function toggleActive() {
+  async function setStatus(status: "ACTIVE" | "INACTIVE") {
     setBusy(true);
     try {
       await fetch(`/api/admin/listings/${listing.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ active: !listing.active }),
+        body: JSON.stringify({ status }),
       });
       router.refresh();
     } finally {
@@ -35,11 +35,15 @@ export default function ListingRow({ listing }: { listing: Listing }) {
         <span className="dim">
           ({listing.category}) — {listing.priceCents ? `$${(listing.priceCents / 100).toFixed(2)}` : "Contact"}
         </span>
-        {!listing.active && <span className="dim" style={{ marginLeft: 8 }}>(inactive)</span>}
+        {listing.status !== "ACTIVE" && <span className="dim" style={{ marginLeft: 8 }}>({listing.status.toLowerCase()})</span>}
       </div>
-      <button className="btn btn-ghost" disabled={busy} onClick={toggleActive}>
-        {listing.active ? "Deactivate" : "Activate"}
-      </button>
+      {listing.status === "SOLD" ? (
+        <span className="dim" style={{ fontSize: 12.5 }}>Sold — moderation N/A</span>
+      ) : (
+        <button className="btn btn-ghost" disabled={busy} onClick={() => setStatus(listing.status === "ACTIVE" ? "INACTIVE" : "ACTIVE")}>
+          {listing.status === "ACTIVE" ? "Deactivate" : "Activate"}
+        </button>
+      )}
     </div>
   );
 }

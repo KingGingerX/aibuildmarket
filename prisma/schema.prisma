@@ -12,6 +12,7 @@ model User {
   email         String    @unique
   passwordHash  String
   displayName   String
+  avatarUrl     String?
   emailVerified DateTime?
   isVerifiedSeller Boolean @default(false)
   isAdmin       Boolean   @default(false)
@@ -23,6 +24,7 @@ model User {
   sessions      Session[]
   orders        Order[]            @relation("BuyerOrders")
   verificationTokens VerificationToken[]
+  passwordResetTokens PasswordResetToken[]
   cosmeticPurchases  CosmeticPurchase[]
 }
 
@@ -45,12 +47,29 @@ model VerificationToken {
   @@index([userId])
 }
 
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expires   DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
 enum Category {
   AI_TOOLS
   BUSINESSES
   IDEAS_IP
   PROMPTS
   GAMES
+}
+
+enum ListingStatus {
+  ACTIVE
+  SOLD
+  INACTIVE
 }
 
 model Listing {
@@ -62,14 +81,17 @@ model Listing {
   imageUrl    String?           // /logos/<slug>.webp, null = category icon fallback
   sellerId    String
   seller      User      @relation(fields: [sellerId], references: [id])
-  active      Boolean   @default(true)
+  status      ListingStatus @default(ACTIVE)
+  crossPosted Boolean   @default(false) // seller-declared: also listed on other marketplaces
+  boostedUntil DateTime? // set by a completed BoostPurchase; boosted listings sort first while > now
   createdAt   DateTime  @default(now())
 
   comments    Comment[]
   orders      Order[]
+  boostPurchases BoostPurchase[]
 
   @@index([category])
-  @@index([active, createdAt])
+  @@index([status, createdAt])
 }
 
 model Comment {
@@ -130,6 +152,20 @@ model CosmeticPurchase {
   @@unique([userId, packId])
 }
 
+model BoostPurchase {
+  id              String                 @id @default(cuid())
+  listingId       String
+  listing         Listing                @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  stripeSessionId String                 @unique
+  amountCents     Int
+  days            Int
+  status          CosmeticPurchaseStatus @default(PENDING)
+  createdAt       DateTime               @default(now())
+  completedAt     DateTime?
+
+  @@index([listingId])
+}
+
 enum OrderStatus {
   PENDING
   COMPLETED
@@ -140,7 +176,7 @@ enum OrderStatus {
 model Order {
   id                String      @id @default(cuid())
   listingId         String
-  listing           Listing     @relation(fields: [listingId], references: [id])
+  listing           Listing     @relation(fields: [listingId], references: [id], onDelete: Cascade)
   buyerId           String
   buyer             User        @relation("BuyerOrders", fields: [buyerId], references: [id])
   stripeSessionId   String      @unique

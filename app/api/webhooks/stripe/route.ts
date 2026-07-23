@@ -31,6 +31,23 @@ export async function POST(req: NextRequest) {
         where: { stripeSessionId: checkoutSession.id, status: "PENDING" },
         data: { status: "COMPLETED", completedAt: new Date() },
       });
+    } else if (checkoutSession.metadata?.boostListingId) {
+      const boost = await prisma.boostPurchase.findUnique({
+        where: { stripeSessionId: checkoutSession.id },
+      });
+      if (boost && boost.status === "PENDING") {
+        const boostedUntil = new Date(Date.now() + boost.days * 24 * 60 * 60 * 1000);
+        await prisma.$transaction([
+          prisma.boostPurchase.update({
+            where: { id: boost.id },
+            data: { status: "COMPLETED", completedAt: new Date() },
+          }),
+          prisma.listing.update({
+            where: { id: boost.listingId },
+            data: { boostedUntil },
+          }),
+        ]);
+      }
     } else {
       const order = await prisma.order.findUnique({
         where: { stripeSessionId: checkoutSession.id },
@@ -43,10 +60,11 @@ export async function POST(req: NextRequest) {
             data: { status: "COMPLETED", completedAt: new Date() },
           }),
           // One-off goods (tools, businesses, prompt packs, games, ideas) are
-          // sold once — deactivate the listing so it drops out of browse/search.
+          // sold once — mark the listing SOLD so it drops out of browse/search
+          // but stays visible to the seller with the sale on record.
           prisma.listing.update({
             where: { id: order.listingId },
-            data: { active: false },
+            data: { status: "SOLD" },
           }),
         ]);
       }
@@ -57,6 +75,11 @@ export async function POST(req: NextRequest) {
     const checkoutSession = event.data.object as Stripe.Checkout.Session;
     if (checkoutSession.metadata?.cosmeticPackId) {
       await prisma.cosmeticPurchase.updateMany({
+        where: { stripeSessionId: checkoutSession.id, status: "PENDING" },
+        data: { status: "CANCELLED" },
+      });
+    } else if (checkoutSession.metadata?.boostListingId) {
+      await prisma.boostPurchase.updateMany({
         where: { stripeSessionId: checkoutSession.id, status: "PENDING" },
         data: { status: "CANCELLED" },
       });

@@ -10,6 +10,7 @@ export type ListingCardData = {
   category: string;
   priceCents?: number | null;
   imageUrl?: string | null;
+  boosted?: boolean;
   seller?: { displayName: string; isVerifiedSeller: boolean } | null;
 };
 
@@ -21,6 +22,7 @@ export default function ListingCard({ listing, authenticated }: { listing: Listi
     <Link href={`/listings/${listing.id}`} className="card">
       <div className="card-media">
         <span className="card-cat-tag">{meta.label}</span>
+        {listing.boosted && <span className="card-boost-tag">Boosted</span>}
         {listing.imageUrl ? (
           <Image src={listing.imageUrl} alt={`${listing.title} logo`} width={120} height={120} unoptimized />
         ) : (
