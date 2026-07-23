@@ -14,18 +14,22 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
 
-  const stripe = getStripe();
-  const account = await stripe.accounts.retrieve();
+  try {
+    const stripe = getStripe();
+    const account = await stripe.accounts.retrieve();
 
-  return NextResponse.json({
-    accountId: account.id,
-    business_profile_name: account.business_profile?.name ?? null,
-    business_profile_url: account.business_profile?.url ?? null,
-    settings_dashboard_display_name: account.settings?.dashboard?.display_name ?? null,
-    settings_branding_display_name: (account.settings as unknown as { branding?: { primary_color?: string; icon?: string; logo?: string } })?.branding ?? null,
-    company_name: (account as unknown as { company?: { name?: string } }).company?.name ?? null,
-    email: account.email ?? null,
-  });
+    return NextResponse.json({
+      accountId: account.id,
+      business_profile_name: account.business_profile?.name ?? null,
+      business_profile_url: account.business_profile?.url ?? null,
+      settings_dashboard_display_name: account.settings?.dashboard?.display_name ?? null,
+      settings_branding_display_name: (account.settings as unknown as { branding?: { primary_color?: string; icon?: string; logo?: string } })?.branding ?? null,
+      company_name: (account as unknown as { company?: { name?: string } }).company?.name ?? null,
+      email: account.email ?? null,
+    });
+  } catch (err) {
+    return NextResponse.json({ error: (err as Error).message }, { status: 500 });
+  }
 }
 
 export async function POST(req: NextRequest) {
@@ -39,20 +43,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing name." }, { status: 400 });
   }
 
-  const stripe = getStripe();
-  const before = await stripe.accounts.retrieve();
-  const updated = await stripe.accounts.update(before.id, {
-    business_profile: { name },
-  });
+  try {
+    const stripe = getStripe();
+    const before = await stripe.accounts.retrieve();
+    const updated = await stripe.accounts.update(before.id, {
+      business_profile: { name },
+    });
 
-  return NextResponse.json({
-    before: {
-      business_profile_name: before.business_profile?.name ?? null,
-      settings_dashboard_display_name: before.settings?.dashboard?.display_name ?? null,
-    },
-    after: {
-      business_profile_name: updated.business_profile?.name ?? null,
-      settings_dashboard_display_name: updated.settings?.dashboard?.display_name ?? null,
-    },
-  });
+    return NextResponse.json({
+      before: {
+        business_profile_name: before.business_profile?.name ?? null,
+        settings_dashboard_display_name: before.settings?.dashboard?.display_name ?? null,
+      },
+      after: {
+        business_profile_name: updated.business_profile?.name ?? null,
+        settings_dashboard_display_name: updated.settings?.dashboard?.display_name ?? null,
+      },
+    });
+  } catch (err) {
+    return NextResponse.json({ error: (err as Error).message }, { status: 500 });
+  }
 }
